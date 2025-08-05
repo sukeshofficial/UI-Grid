@@ -2,13 +2,16 @@ import { Header } from "@/components/Header";
 import { HeroSection } from "@/components/HeroSection";
 import { ExploreSection } from "@/components/ExploreSection";
 import { Footer } from "@/components/Footer";
+import { PricingModal } from "@/components/PricingModal";
 import { useTheme } from "@/hooks/useTheme";
 import { useActiveSection } from "@/hooks/useActiveSection";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
 
 const Index = () => {
   const { theme, setTheme, isDark } = useTheme();
   const activeSection = useActiveSection();
+  const [isPricingModalOpen, setIsPricingModalOpen] = useState(false);
 
   const handleThemeToggle = () => {
     setTheme(isDark ? "light" : "dark");
@@ -46,9 +49,19 @@ const Index = () => {
         </section>
         
         <section id="pricing" className="min-h-screen flex items-center justify-center py-20 px-4 bg-surface">
-          <div className="text-center">
-            <h2 className="text-4xl font-bold mb-4 text-foreground">Pricing</h2>
-            <p className="text-xl text-text-subtle">Coming soon...</p>
+          <div className="text-center space-y-6">
+            <h2 className="text-4xl font-bold mb-4 text-foreground">Choose Your Plan</h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              Start building today with our flexible pricing options designed for teams of all sizes
+            </p>
+            <Button
+              variant="hero"
+              size="lg"
+              onClick={() => setIsPricingModalOpen(true)}
+              className="mt-8"
+            >
+              View Pricing Plans
+            </Button>
           </div>
         </section>
         
@@ -61,6 +74,12 @@ const Index = () => {
       </main>
       
       <Footer />
+      
+      {/* Pricing Modal */}
+      <PricingModal 
+        isOpen={isPricingModalOpen} 
+        onClose={() => setIsPricingModalOpen(false)} 
+      />
     </div>
   );
 };
