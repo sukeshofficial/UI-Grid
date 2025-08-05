@@ -60,30 +60,21 @@ export function Header({ activeSection, onThemeToggle, isDark }: HeaderProps) {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:block">
-            <div className="border border-border/50 rounded-full bg-background/80 backdrop-blur-md px-6 py-3">
-              <div className="flex items-center space-x-8">
-                {navItems.map((item) => (
-                  <button
-                    key={item.name}
-                    onClick={() => scrollToSection(item.href)}
-                    className={`relative text-sm font-medium transition-colors duration-200 ${
-                      activeSection === item.href.slice(1)
-                        ? 'text-foreground'
-                        : 'text-text-subtle hover:text-foreground'
-                    }`}
-                  >
-                    {item.name}
-                    {activeSection === item.href.slice(1) && (
-                      <div className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary rounded-full" />
-                    )}
-                  </button>
-                ))}
-                <Button variant="hero" size="sm" className="ml-4">
-                  Start now
-                </Button>
-              </div>
-            </div>
+          <nav className="hidden md:flex items-center space-x-1">
+            {navItems.map((item) => (
+              <button
+                key={item.name}
+                onClick={() => scrollToSection(item.href)}
+                className={cn(
+                  "px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 hover:bg-surface",
+                  activeSection === item.href.slice(1)
+                    ? "text-primary bg-surface"
+                    : "text-muted-foreground hover:text-foreground"
+                )}
+              >
+                {item.name}
+              </button>
+            ))}
           </nav>
 
           {/* Right side actions */}
@@ -93,7 +84,7 @@ export function Header({ activeSection, onThemeToggle, isDark }: HeaderProps) {
               variant="ghost"
               size="icon"
               onClick={onThemeToggle}
-              className="hidden md:flex"
+              className="hidden sm:flex"
               aria-label="Toggle theme"
             >
               {isDark ? (
@@ -102,6 +93,16 @@ export function Header({ activeSection, onThemeToggle, isDark }: HeaderProps) {
                 <Moon className="h-5 w-5" />
               )}
             </Button>
+
+            {/* CTA Buttons */}
+            <div className="hidden md:flex items-center space-x-3">
+              <Button variant="hero" size="sm">
+                Start now
+              </Button>
+              <Button variant="outline" size="sm">
+                Create Account
+              </Button>
+            </div>
 
             {/* Mobile menu button */}
             <Button
